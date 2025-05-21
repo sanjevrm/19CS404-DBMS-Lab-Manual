@@ -1,5 +1,6 @@
 # Experiment 4: Aggregate Functions, Group By and Having Clause
-
+### Reg.No : 212223040186
+### Name : SANJEV R M
 ## AIM
 To study and implement aggregate functions, GROUP BY, and HAVING clause with suitable examples.
 
@@ -37,124 +38,302 @@ HAVING condition;
 ```
 
 **Question 1**
---
--- Paste Question 1 here
-
+```
+Write a SQL query to find the customer with longest name?
+Table: customer
+name        type
+----------  ----------
+id          INTEGER
+name        TEXT
+city        TEXT
+email       TEXT
+phone       INTEGER
+For example:
+Result
+name          length
+------------  ----------
+Preeti Patel  12
+```
 ```sql
--- Paste your SQL code below for Question 1
+select name,LENGTH(name) as length
+from customer
+order by length(name) DESC LIMIT 1;
 ```
 
 **Output:**
 
-![Output1](output.png)
+![image](https://github.com/user-attachments/assets/de1deadb-97ca-4dfa-9c6c-6f5a0e10f574)
+
 
 **Question 2**
----
--- Paste Question 2 here
+```
+How many appointments are scheduled for each patient?
+Sample table: Appointments Table
+name                  type
+--------------------  ----------
+AppointmentID         INTEGER
+PatientID             INTEGER
+DoctorID              INTEGER
+AppointmentDateTime   DATETIME
+Purpose               TEXT
+Status                TEXT
+For example:
+Result
+PatientID   TotalAppointments
+----------  -----------------
+3           3
+5           2
+6           1
+7           1
+10          3
+```
 
 ```sql
--- Paste your SQL code below for Question 2
+select PatientID,count(*) as TotalAppointments
+from Appointments
+group by PatientID
 ```
 
 **Output:**
 
-![Output2](output.png)
+![image](https://github.com/user-attachments/assets/b11fedb4-8d68-4c21-93be-b57805ebc207)
 
 **Question 3**
----
--- Paste Question 3 here
-
+```
+Write a SQL query to find the minimum purchase amount.
+Sample table: orders
+ord_no      purch_amt   ord_date    customer_id  salesman_id
+----------  ----------  ----------  -----------  -----------
+70001       150.5       2012-10-05  3005         5002
+70009       270.65      2012-09-10  3001         5005
+70002       65.26       2012-10-05  3002         5001
+For example:
+Result
+MINIMUM
+----------
+65.26
+```
 ```sql
--- Paste your SQL code below for Question 3
+select min(purch_amt) as "MINIMUM"
+from orders;
 ```
 
 **Output:**
 
-![Output3](output.png)
+![image](https://github.com/user-attachments/assets/cffc8b52-4601-462d-b8a3-53ef22fc5b18)
+
 
 **Question 4**
----
--- Paste Question 4 here
+```
+How many appointments are scheduled in each hour of the day?
+Sample table:Appointments Table
+name                              type
+--------------------          ----------
+AppointmentID               INTEGER
+PatientID                         INTEGER
+DoctorID                         INTEGER
+AppointmentDateTime   DATETIME
+Purpose                           TEXT
+Status                              TEXT     
+For example:
+Result
+HourOfDay   TotalAppointments
+----------  -----------------
+09          2
+10          5
+11          1
+14          1
+16          1
+```
 
 ```sql
--- Paste your SQL code below for Question 4
+select strftime('%H',AppointmentDateTime)as HourOfDay,count(*) as TotalAppointments
+from Appointments
+group by HourOfDay
+order by HourOfDay;
 ```
 
 **Output:**
 
-![Output4](output.png)
+![image](https://github.com/user-attachments/assets/e324b364-4c90-4b70-87d8-2cd7c9bd9cc1)
+
+
+
 
 **Question 5**
----
--- Paste Question 5 here
-
+```
+Write a SQL query to find What is the age difference between the youngest and oldest employee in the company.
+Table: employee
+name        type
+----------  ----------
+id          INTEGER
+name        TEXT
+age         INTEGER
+city        TEXT
+income      INTEGER
+For example:
+Result
+age_difference
+--------------
+13
+```
 ```sql
--- Paste your SQL code below for Question 5
+select MAX(age)-MIN(age) as age_difference
+from employee;
 ```
 
 **Output:**
 
-![Output5](output.png)
+![image](https://github.com/user-attachments/assets/068fca57-5e72-4419-99c3-cd8d96e1ef69)
 
 **Question 6**
----
--- Paste Question 6 here
+```
+What is the average dosage prescribed for each medication?
+Sample tablePrescriptions Table
+```
+![image](https://github.com/user-attachments/assets/af0015ae-9461-42eb-84e0-51e064466b75)
+```
+For example:
+Result
+Medication     AvgDosage
+-------------  ----------
+Ciprofloxacin  500.0
+Doxorubicin    60.0
+Ibuprofen      400.0
+Levothyroxine  50.0
+Lisinopril     10.0
+MMR            0.5
+Pending        0.0
+Prenatal vita  1.0
+Sertraline     50.0
+Topiramate     25.0
+```
 
 ```sql
--- Paste your SQL code below for Question 6
+select Medication,avg(Dosage) as AvgDosage
+from Prescriptions
+group by Medication;
 ```
 
 **Output:**
 
-![Output6](output.png)
+![image](https://github.com/user-attachments/assets/25c11a97-d608-40bd-b3ce-100aaa680b28)
+
+
 
 **Question 7**
----
--- Paste Question 7 here
+```
+Write a SQL query that counts the number of unique salespeople. Return number of salespeople.
+Sample table: orders
+ord_no      purch_amt   ord_date    customer_id  salesman_id
+----------  ----------  ----------  -----------  -----------
+70001       150.5       2012-10-05  3005         5002
+70009       270.65      2012-09-10  3001         5005
+70002       65.26       2012-10-05  3002         5001
+For example:
+Result
+COUNT
+----------
+6
+```
 
 ```sql
--- Paste your SQL code below for Question 7
+select count(DISTINCT salesman_id)as COUNT
+from orders;
 ```
 
 **Output:**
 
-![Output7](output.png)
+![image](https://github.com/user-attachments/assets/b3175bf9-2572-4363-af84-f7f354f232e6)
+
+
 
 **Question 8**
----
--- Paste Question 8 here
+```
+Write the SQL query that achieves the grouping of data by city, calculates the total income for each city, and includes only those cities where the total income sum is greater than 200,000.
+Sample table: employee
+```
+![image](https://github.com/user-attachments/assets/b9bdb5ec-c7eb-4692-844f-61a9dec1f10a)
+```
+For example:
+Result
+city        Income
+----------  ----------
+Alaska      450000
+Arizona     1000000
+California  5300000
+Florida     5350000
+Georgia     250000
+```
 
 ```sql
--- Paste your SQL code below for Question 8
+select city,sum(income) as Income
+from employee
+group by city
+having sum(income)>200000;
 ```
 
 **Output:**
 
-![Output8](output.png)
+![image](https://github.com/user-attachments/assets/e3830f2d-83f0-41a7-bff4-3486a4c5d0cc)
+
+
 
 **Question 9**
----
--- Paste Question 9 here
-
+```
+Write a SQL query to calculate total available amount of fruits that has a price greater than 0.5 . Return total Count. 
+Note: Inventory attribute contains amount of fruits
+Table: fruits
+name        type
+----------  ----------
+id          INTEGER
+name        TEXT
+unit        TEXT
+inventory   INTEGER
+price       REAL
+For example:
+Result
+total_available_amount
+----------------------
+160
+```
 ```sql
--- Paste your SQL code below for Question 9
+select  sum(inventory) as total_available_amount
+from fruits
+where price >0.5;
+
 ```
 
 **Output:**
 
-![Output9](output.png)
+![image](https://github.com/user-attachments/assets/d191675d-fc2d-43f2-947e-06bffb4b6bc4)
 
 **Question 10**
----
--- Paste Question 10 here
-
+```
+Write a SQL query to find the average length of email addresses (in characters):
+Table: customer
+name        type
+----------  ----------
+id          INTEGER
+name        TEXT
+city        TEXT
+email       TEXT
+phone       INTEGER
+For example:
+Result
+avg_email_length
+----------------
+15.0
+```
 ```sql
--- Paste your SQL code below for Question 10
+select AVG(length(email)) as avg_email_length
+from customer;
 ```
 
 **Output:**
 
-![Output10](output.png)
+![image](https://github.com/user-attachments/assets/9a4be1ed-cfeb-4529-a540-9263fab67cbf)
+
 
 
 ## RESULT
